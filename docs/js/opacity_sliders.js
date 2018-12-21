@@ -159,7 +159,11 @@ var attach_opacity_selector = function(target, color_mappings, on_change) {
     
     draw_selector();
     element.fit();
-    element.dialog({height:'auto', width:'auto'});
+    element.dialog({height:'auto', width:'auto', position: {
+        my: "right center",
+        at: "right bottom",
+        of: "#container"
+      }});
     return element;
 }
 

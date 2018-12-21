@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 	<head>
-		<title>three.js webgl - custom attributes [lines]</title>
+		<title>Fetal kidney clusters 3d interactive visualization</title>
 		<meta charset="utf-8">
 		<meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
 		<style>
@@ -30,7 +30,10 @@
 	</head>
 
 	<body>
-		<div id="info">Fetal kidney tissue clusters</div>
+		<div id="info">Fetal kidney tissue clusters: Please use the
+			<a href="#" id="dialog_link" style="color: #0FF">dialog</a> widget to adjust category colors and opacity.
+			Please mousedown and drag to rotate view.
+		</div>
 		<div id="container"></div>
 
 		// https://cdnjs.cloudflare.com/ajax/libs/three.js/88/three.js
@@ -166,9 +169,9 @@
 			orbitControls = new THREE.OrbitControls(camera, renderer.domElement);
 			//debugger;
 			orbitControls.center.set(center[0], center[1], center[2]);
-			camera.position.x = -center[0]; //-354.2465689567709;
-			camera.position.y = -center[1]; //-172.1297558166637;
-			camera.position.z = -center[2]; //-181.10999904026764;
+			camera.position.x = -3*center[0]; //-354.2465689567709;
+			camera.position.y = -3*center[1]; //-172.1297558166637;
+			camera.position.z = -3*center[2]; //-181.10999904026764;
 			camera.lookAt(new THREE.Vector3(center[0], center[1], center[2]));
 
 			var container = document.getElementById( 'container' );
@@ -190,6 +193,10 @@
 			};
 
 			var colorizer = attach_opacity_selector($("#info"), all_categories, update_colors);
+
+			$("#dialog_link").on("click", function () {
+				colorizer.dialog("open")
+			})
 		}
 
 		function onWindowResize() {
