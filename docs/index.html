@@ -23,6 +23,13 @@
 				padding: 5px;
 				z-index:100;
 			}
+			#linkout {
+				color: #fff;
+				position: absolute;
+				top: 50px; width: 100%;
+				padding: 5px;
+				z-index:100;
+			}
 
 		</style>    
 		<link rel="stylesheet" href="./css/jquery-ui.css">
@@ -34,10 +41,13 @@
 			<a href="#" id="dialog_link" style="color: #0FF">dialog</a> widget to adjust category colors and opacity.
 			Please mousedown and drag to rotate view.
 		</div>
+
+		<div id="linkout"><a href="inside_div.html" style="color:hotpink">
+			Click to view a simplified interface using checkboxes.
+		</a></div>
+
 		<div id="container"></div>
 
-		// https://cdnjs.cloudflare.com/ajax/libs/three.js/88/three.js
-		// ../js/three.js
 		<script src="./js/three.js"></script>
 
 		<script src="./js/THREE.contourist.js"></script>

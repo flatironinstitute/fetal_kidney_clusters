@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<title>Fetal kidney clusters 3d interactive visualization</title>
+		<meta charset="utf-8">
+		<link rel="stylesheet" href="./css/jquery-ui.css">
+
+	</head>
+
+	<body>
+		<h1>Simplified fetal kidney tissue clusters: 
+			Please mousedown and drag to rotate view.
+		</h1>
+		<div>
+		<span>
+			<div id="container" style="width: 800px; height:600px; background-color:yellow; float:left"></div>
+			<div id="checkboxes" style="display:inline-block">Checkboxes</div>
+		</span>
+		</div>
+		<br>
+		<div style="padding: 70px; clear: both">
+			This is an example of embedding
+			the category visualization in a web
+			context using fixed colors and checkboxes
+			to control the category visualization.
+			Please view the source to examine the embedding
+			mechanics.
+		</div>
+
+		<script src="./js/three.js"></script>
+
+		<script src="./js/THREE.contourist.js"></script>
+		<script src="./js/OrbitControls.js"></script>
+		<script src="./js/jquery.min.js"></script>
+		<script src="./js/jquery-ui.js"></script>
+		<script src="./js/categories3d.js"></script>
+
+		<script>
+
+		var json_file_path = "./data/all_categories.json"
+
+		var container_div_id = "container";
+
+		var checkbox_div_id = "checkboxes";
+
+		var category_colors = {
+			// r, g, b, a
+			1: [123,213,56, 0],
+			2: [0,213,56, 0],
+			3: [123,0,56, 0],
+			4: [123,213,0, 0],
+			5: [255,213,56, 0],
+			6: [123,255,56, 1],
+			7: [123,213,255, 0],
+			8: [100,100,56, 0],
+			9: [100,213,100, 0],
+			10: [123,100,100, 0],
+			11: [255,255,56, 0],
+			12: [255,213,255, 0],
+			13: [123,255,255, 0],
+			14: [255,255,255, 0],
+		};
+
+		var max_opacity = 0.5;
+
+		embed_categories(
+			json_file_path,
+			category_colors,
+			container_div_id,
+			checkbox_div_id,
+			max_opacity
+		)
+
+	</script>
+
+</body>
+
+</html>
