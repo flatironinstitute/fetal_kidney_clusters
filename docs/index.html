@@ -42,8 +42,8 @@
 			Please mousedown and drag to rotate view.
 		</div>
 
-		<div id="linkout"><a href="inside_div.html" style="color:hotpink">
-			Click to view a simplified interface using checkboxes.
+		<div id="linkout"><a href="paired.html" style="color:hotpink">
+			Click to view clusters compared with protein expression levels.
 		</a></div>
 
 		<div id="container"></div>
@@ -179,9 +179,9 @@
 			orbitControls = new THREE.OrbitControls(camera, renderer.domElement);
 			//debugger;
 			orbitControls.center.set(center[0], center[1], center[2]);
-			camera.position.x = -3*center[0]; //-354.2465689567709;
-			camera.position.y = -3*center[1]; //-172.1297558166637;
-			camera.position.z = -3*center[2]; //-181.10999904026764;
+			camera.position.x = 5*center[0]; //-354.2465689567709;
+			camera.position.y = center[1]; //-172.1297558166637;
+			camera.position.z = 8*center[2]; //-181.10999904026764;
 			camera.lookAt(new THREE.Vector3(center[0], center[1], center[2]));
 
 			var container = document.getElementById( 'container' );
