@@ -55,6 +55,14 @@ h2 {
   border-radius: 0.25rem;
 }
 
+.container__footer {
+  margin: auto 0;
+  padding: 3rem 0;
+  text-align: center;
+  font-size: 17px;
+  line-height: 1.7;
+}
+
 .column {
   margin: 0 1rem;
   width: 48%;
