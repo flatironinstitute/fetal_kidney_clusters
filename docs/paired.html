@@ -1,105 +1,118 @@
 <!DOCTYPE html>
 <html lang="en">
-	<head>
-		<title>Fetal kidney clusters 3d interactive visualization</title>
-		<meta charset="utf-8">
-		<link rel="stylesheet" href="./css/jquery-ui.css">
+  <head>
+    <title>Fetal kidney clusters 3d interactive visualization</title>
+    <meta charset="utf-8" />
+    <link
+      href="https://fonts.googleapis.com/css?family=Open+Sans"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="./css/normalize.css" />
+    <link rel="stylesheet" href="./css/styles.css" />
+    <link rel="stylesheet" href="./css/jquery-ui.css" />
+  </head>
 
-	</head>
+  <body class="container">
+    <div class="container__header">
+      <h2>Fetal kidney tissue clusters with protein expression levels</h2>
+      <p class="intro-text">
+        Please mousedown and drag on the left to rotate both views. Adjust the
+        slider to change the expression level contour.
+      </p>
+    </div>
+    <div class="container__viz">
+      <div class="column">
+        <div id="container" class="viz"></div>
+        <div class="caption">
+          <p><b>Categories:</b></p>
+          <div id="checkboxes"></div>
+        </div>
+      </div>
+      <div class="column">
+        <div id="container2" class="viz"></div>
+        <div class="caption">
+          <label for="amount">Protein level:</label>
+          <input
+            type="text"
+            id="amount"
+            readonly
+            style="border:0; color:#f6931f; font-weight:bold;"
+          />
+          <div id="slider" style="width: 300px; margin: 0 auto;"></div>
+          <div id="proteins"></div>
+        </div>
+      </div>
+    </div>
 
-	<body>
-		<h1>Fetal kidney tissue clusters with protein expression levels: 
-		</h1>
-		<p>Please mousedown and drag on the left to rotate both views.</p>
-		<p>Adjust the slider to change the expression level contour.</p>
-		<div>
-		<span>
-			<div id="container" style="width: 800px; height:800px; background-color:yellow; float:left"></div>
-			<div id="container2" style="width: 800px; height:800px; background-color:yellow; display:inline-block"></div>
-		</span>
-		</div>
-		<br>
-		<div id="checkboxes" style="padding: 20px; clear: both">Categories:0&nbsp; </div>
-		<div style="width: 400px; margin: 0 auto;">
-			<label for="amount">Protein level:</label>
-			<input type="text" id="amount" readonly style="border:0; color:#f6931f; font-weight:bold;">
-			<div id="slider" style="width: 300px; margin: 0 auto;"></div>
-			<div id="proteins"></div>
-		</div>
-		<div style="padding: 70px; clear: both">
-			This visualization pairs a display of protein expression levels on the right
-			with derived tissue categories on the left.
-			Please view the source to examine the embedding
-			mechanics.
-		</div>
+    <div style="padding: 70px; clear: both">
+      This visualization pairs a display of protein expression levels on the
+      right with derived tissue categories on the left. Please view the source
+      to examine the embedding mechanics.
+    </div>
 
-		<script src="./js/three.js"></script>
+    <script src="./js/three.js"></script>
 
-		<script src="./js/THREE.contourist.js"></script>
-		<script src="./js/OrbitControls.js"></script>
-		<script src="./js/jquery.min.js"></script>
-		<script src="./js/jquery-ui.js"></script>
-		<script src="./js/categories3d.js"></script>
-		<script src="./js/all_proteins.js"></script>
+    <script src="./js/THREE.contourist.js"></script>
+    <script src="./js/OrbitControls.js"></script>
+    <script src="./js/jquery.min.js"></script>
+    <script src="./js/jquery-ui.js"></script>
+    <script src="./js/categories3d.js"></script>
+    <script src="./js/all_proteins.js"></script>
 
-		<script>
+    <script>
+      var json_file_path = "./data/all_categories.json";
+      var protein_file_path = "./data/all_proteins.json";
 
-		var json_file_path = "./data/all_categories.json"
-		var protein_file_path = "./data/all_proteins.json"
+      var container_div_id = "container";
+      var protein_div_id = "container2";
+      var protein_selector_div = "proteins";
 
-		var container_div_id = "container";
-		var protein_div_id = "container2";
-		var protein_selector_div = "proteins"
+      var checkbox_div_id = "checkboxes";
+      var slider_div_id = "slider";
 
-		var checkbox_div_id = "checkboxes";
-		var slider_div_id = "slider";
+      var category_colors = {
+        // r, g, b, a
+        1: [255, 255, 255, 0],
+        2: [255, 255, 0, 0],
+        3: [255, 0, 255, 0],
+        4: [0, 255, 255, 0],
+        5: [255, 0, 0, 0],
+        6: [0, 255, 0, 1],
+        7: [0, 0, 255, 0],
+        8: [128, 128, 128, 0],
+        9: [128, 128, 0, 0],
+        10: [0, 128, 128, 0],
+        11: [128, 0, 128, 0],
+        12: [127, 255, 127, 0],
+        13: [255, 105, 180, 0],
+        14: [244, 164, 96, 0]
+      };
 
-		var category_colors = {
-			// r, g, b, a
-			1: [255,255,255, 0],
-			2: [255,255,0, 0],
-			3: [255,0,255, 0],
-			4: [0,255,255, 0],
-			5: [255,0, 0, 0],
-			6: [0,255,0, 1],
-			7: [0,0,255, 0],
-			8: [128, 128,128, 0],
-			9: [128, 128, 0, 0],
-			10: [0, 128, 128, 0],
-			11: [128, 0, 128, 0],
-			12: [127, 255, 127, 0],
-			13: [255, 105,180, 0],
-			14: [244, 164, 96, 0],
-		};
+      var max_opacity = 0.5;
+      var horizontal_checkboxes = true;
+      var info;
 
-		var max_opacity = 0.5;
-		var horizontal_checkboxes = true;
-		var info;
+      function embed_callback(callback_info) {
+        info = callback_info;
+        embed_proteins(
+          protein_file_path,
+          info.camera,
+          info.center,
+          protein_div_id,
+          slider_div_id,
+          protein_selector_div
+        );
+      }
 
-		function embed_callback(callback_info) {
-			info = callback_info;
-			embed_proteins(
-				protein_file_path,
-				info.camera,
-				info.center,
-				protein_div_id,
-				slider_div_id,
-				protein_selector_div,
-			)
-		}
-
-		embed_categories(
-			json_file_path,
-			category_colors,
-			container_div_id,
-			checkbox_div_id,
-			max_opacity,
-			horizontal_checkboxes,
-			embed_callback
-		)
-
-	</script>
-
-</body>
-
+      embed_categories(
+        json_file_path,
+        category_colors,
+        container_div_id,
+        checkbox_div_id,
+        max_opacity,
+        horizontal_checkboxes,
+        embed_callback
+      );
+    </script>
+  </body>
 </html>
