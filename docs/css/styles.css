@@ -22,9 +22,8 @@ html {
 }
 
 h2 {
-  max-width: 63rem;
+  max-width: 75rem;
   margin: 0 auto;
-  /* padding-top: 5rem; */
   text-align: center;
   font-size: 40px;
   line-height: 1.2;
@@ -70,12 +69,51 @@ h2 {
 
 .caption {
   margin: 2rem 1rem;
+  min-height: 86px;
+}
+
+.caption-top-row {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: baseline;
+}
+
+.caption-row {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: baseline;
+  height: 30px;
+  font-size: 16px !important;
+}
+
+.protein-level {
+  border: 0;
+  color: #f6931f;
+  font-weight: bold;
+  margin-left: 5px;
+  max-width: 30px;
+}
+
+.protein-slider {
+  width: 300px;
+  margin: 0 auto;
+}
+
+#protein {
+  margin: 0;
+}
+
+#slider {
+  margin: 0 !important;
 }
 
 label {
   display: block;
   margin-bottom: 0.5rem;
   font-weight: 600;
+  white-space: nowrap;
 }
 
 input[type="checkbox"] {
@@ -90,4 +128,16 @@ span {
 
 span > span {
   margin-left: 0;
+}
+
+select {
+  /* height: 38px; */
+  padding: 6px 10px; /* The 6px vertically centers text on FF, ignored by Webkit */
+  background-color: #fff;
+  border: 1px solid #d1d1d1;
+  border-radius: 4px;
+  box-shadow: none;
+  box-sizing: border-box;
+  margin-left: 10px;
+  width: 300px;
 }

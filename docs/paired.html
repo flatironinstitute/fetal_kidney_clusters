@@ -31,15 +31,16 @@
       <div class="column">
         <div id="container2" class="viz"></div>
         <div class="caption">
-          <label for="amount">Protein level:</label>
-          <input
-            type="text"
-            id="amount"
-            readonly
-            style="border:0; color:#f6931f; font-weight:bold;"
-          />
-          <div id="slider" style="width: 300px; margin: 0 auto;"></div>
-          <div id="proteins"></div>
+          <div class="caption-top-row">
+            <!-- <label for="amount">Protein: </label> -->
+            <p><b>Protein:</b></p>
+            <div id="proteins"></div>
+          </div>
+          <div class="caption-row">
+            <label for="amount">Level</label>
+            <input type="text" id="amount" readonly class="protein-level" />
+            <div id="slider" class="protein-slider"></div>
+          </div>
         </div>
       </div>
     </div>
