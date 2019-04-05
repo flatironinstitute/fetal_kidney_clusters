@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 	<head>
-		<title>Fetal kidney clusters 3d interactive visualization</title>
+		<title>Fetal kidney expression 3d interactive visualization</title>
 		<meta charset="utf-8">
 		<meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
 		<style>
@@ -39,7 +39,13 @@
 	<body>
 		<div id="info">
 			cdh1 protein expression test
+			<p>
+				<label for="amount">Level:</label>
+				<input type="text" id="amount" readonly style="border:0; color:#f6931f; font-weight:bold;">
+				<div id="slider" style="width: 300px; margin: 0 auto;"></div>
+			</p>
 		</div>
+	
 
 		<div id="container"></div>
 
@@ -66,6 +72,7 @@
 		var json_loaded; //description;
 		var orbitControls;
 		var clock;
+		var value;
 
 		function on_load(data) {
 			debugger;
@@ -80,10 +87,33 @@
 			      "You may need to run a web server to avoid cross origin restrictions.")
 		}
 
-		jQuery.getJSON("./cdh1.json", on_load).fail(on_load_failure);
+		var filename = "./data/protein_emx2.json";
+		//var filename = "./cdh1.json";
+
+		jQuery.getJSON(filename, on_load).fail(on_load_failure);
 
 		function init() {
 			//debugger;
+
+			$( function() {
+				$( "#slider" ).slider({
+					//orientation: "vertical",
+					range: "min",
+					min: -1,
+					max: 8,
+					value: 5,
+					step: 0.1,
+					slide: function( event, ui ) {
+						val = parseFloat( ui.value );
+						value = val;
+						$( "#amount" ).val( ui.value );
+					}
+				});
+				//var val = parseFloat($( "#slider" ).slider( "value" ));
+				//$( "#amount" ).val(val);
+				//value = val;
+			} );
+
 			var camera_xyz = json_loaded.camera;
 			var center = json_loaded.center;
 			var array = json_loaded.array;
@@ -107,12 +137,12 @@
 			scene.add( light );
 
 			var hmaterial = new THREE.MeshLambertMaterial( { 
-				color: 0xff0000, 
+				color: 0xffffff, 
 				transparent:true, 
 				opacity: 0.5,
 				alphaTest: 0.2
 			} );
-			var value = 0.5;
+			value = 0.5;
 			var limits = [0, 100];
 			var origin = [0, 0, 0];
 			var u = [1, 0, 0];
@@ -164,7 +194,13 @@
 
 			var time = Date.now() * 0.001;
 
-            var delta = clock.getDelta();
+			var delta = clock.getDelta();
+			
+			if (info.uniforms) {
+				info.uniforms.f0.value = value;
+				//info.uniforms.opacity.value = Math.cos( 3 * time ) * 0.5 + 0.5;
+			}
+
             orbitControls.update(delta);
 			renderer.render( scene, camera );
 
