@@ -4,8 +4,11 @@ function embed_categories(
 			category_colors,
 			container_div_id,
 			checkbox_div_id,
-			max_opacity
+            max_opacity,
+            horizontal_checkboxes,
+            on_success_callback
 ) {
+    var callback_info = {};
 
     var renderer, scene, camera;
 
@@ -19,6 +22,7 @@ function embed_categories(
         all_categories = data;
         //orbitControls = new THREE.OrbitControls(camera, renderer.domElement);
         clock = new THREE.Clock();
+        callback_info.clock = clock;
         init();
         animate();
     }
@@ -32,11 +36,10 @@ function embed_categories(
 
     function init() {
 
-        // local hack:
-        THREE.DEBUG = true;
-
         scene = new THREE.Scene();
         category_to_info = {};
+        callback_info.category_to_info = category_to_info;
+        callback_info.scene = scene;
 
         var category_visibility = function(category, checkbox) {
             checkbox.change(function() {
@@ -66,7 +69,12 @@ function embed_categories(
             var cc2 = cc.slice();
             cc2[3] = 1;
             var rgba = "rgba(" + (cc2.join(",")) + ")";
-            var cbdiv = $("<div/>").appendTo(checkboxes)
+            var cbdiv;
+            if (horizontal_checkboxes) {
+                cbdiv = $("<span/>").appendTo(checkboxes);
+            } else {
+                cbdiv = $("<div/>").appendTo(checkboxes);
+            }
             var cb = $('<input type="checkbox"/>').appendTo(cbdiv);
             if (description.opacity) {
                 cb.prop('checked', true);
@@ -81,6 +89,13 @@ function embed_categories(
                 transparent:true, 
                 alphaTest: 0.2
             } );
+
+			//var hmaterial = new THREE.MeshLambertMaterial( { 
+			//	color: 0xffffff, 
+			//	transparent:true, 
+			//	opacity: 0.5,
+			//	alphaTest: 0.2
+			//} );
             hmaterial.opacity = description.opacity * max_opacity;
             hmaterial.color.setRGB(description.r/255.0, description.g/255.0, description.b/255.0);
 
@@ -108,15 +123,19 @@ function embed_categories(
         var h = c.height();
         renderer.setSize( w, h );
         camera = new THREE.PerspectiveCamera( 30, w / h, 0.1, 10000 );
-        camera.position.x = -3*center[0]; //-354.2465689567709;
-        camera.position.y = -3*center[1]; //-172.1297558166637;
-        camera.position.z = -3*center[2]; //-181.10999904026764;
+        callback_info.camera = camera;
+        camera.position.x = 3 * center[0]; //-354.2465689567709;
+        camera.position.y = center[1]; //-172.1297558166637;
+        camera.position.z = 8 * center[2]; //-181.10999904026764;
         camera.lookAt(new THREE.Vector3(center[0], center[1], center[2]));
+        callback_info.center = center;
         orbitControls = new THREE.OrbitControls(camera, renderer.domElement);
         
         orbitControls.center.set(center[0], center[1], center[2]);
 
         container.appendChild( renderer.domElement );
+
+        on_success_callback(callback_info);
 
     }
 

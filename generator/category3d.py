@@ -1,6 +1,7 @@
 import numpy as np
 import os
 from scipy import signal
+import protein_levels
 
 interior_sequence = [
     (0, 0, 1),
@@ -21,7 +22,10 @@ tetrahedral_vertices = np.array(tetrahedral_vertices)
 
 def threshold_outline(array, threshhold=0.5, strides=1):
     if strides > 1:
-        array = array[::strides, ::strides, ::strides]
+        print ("shape before strides", array.shape)
+        #array = array[::strides, ::strides, ::strides]
+        array = protein_levels.average_down3(array, strides)
+        print ("shape after strides", array.shape)
     (nrows, ncols, npiles) = array.shape
     outlines = np.zeros(array.shape)
     maxneighbors = np.zeros(array.shape)
@@ -73,6 +77,7 @@ def nonzero_tetrahedra(array, limit=10000000, strides=1):
     Dbuffer = []
     fbuffer = []
     (outlines, array) = threshold_outline(array, threshhold=0.5, strides=strides)
+    print ("...outlines shape", outlines.shape)
     (i_indices, j_indices, k_indices) = outlines.nonzero()
     assert len(i_indices) > 0
     for count in range(len(i_indices)):

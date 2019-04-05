@@ -4,6 +4,7 @@ Generate JSON data for kidney visualization from source data.
 """
 
 import category3d
+import protein_levels
 
 json_path = "../docs/data/all_categories.json"
 
@@ -11,9 +12,10 @@ def generate(
         data_path="./source/", 
         special_categories={9, 10, 11, 13}, 
         json_path=json_path,
-        strides=4):
+        strides=protein_levels.DEFAULT_STRIDES):
     print("Parsing", data_path)
     kidney = category3d.read_kidney_slices(path=data_path)
+    print ("kidney array shape", kidney.shape)
     print("Generating", json_path, "compressing", strides, "in each dimension.")
     category3d.all_categories_json(
         kidney, 
