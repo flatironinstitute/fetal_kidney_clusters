@@ -7,7 +7,7 @@ function embed_proteins(
     slider_div_id,
     proteins_div_id,
 ) {
-    var renderer, scene, camera, info, protein_to_path, protein_json;
+    var renderer, scene, camera, info, info_outline, protein_to_path, protein_json;
 
     function on_load(data) {
         protein_to_path = data;
@@ -47,7 +47,7 @@ function embed_proteins(
                 step: 0.1,
                 slide: function( event, ui ) {
                     val = parseFloat( ui.value );
-                    value = val;
+                    value = val + 0.05;
                     $( "#amount" ).val( ui.value );
                 }
             });
@@ -114,7 +114,9 @@ function embed_proteins(
         var name = data.name;
         if (info) {
             scene.remove(info.object);
+            scene.remove(info_outline.object);
         }
+        // adjustable wireframe
         var hmaterial = new THREE.MeshLambertMaterial( { 
             color: 0xffffff, 
             transparent:true, 
@@ -122,7 +124,7 @@ function embed_proteins(
             alphaTest: 0.2
         } );
         value = 0.5;
-        var limits = [0, 100];
+        var limits = [-10, 100];
         var origin = [0, 0, 0];
         var u = [1, 0, 0];
         var v = [0, 1, 0];
@@ -132,6 +134,18 @@ function embed_proteins(
         );
         info.material.wireframe = true;
         scene.add(info.object);
+        // static outline
+        var hmaterial_outline = new THREE.MeshNormalMaterial( { 
+            color: 0x997755, 
+            transparent:true, 
+            opacity: 0.3,
+            alphaTest: 0.1
+        } );
+        var outline_value = -0.994;
+        info_outline = THREE.contourist.Regular3D(
+            array, outline_value, origin, u, v, w, hmaterial_outline, limits
+        );
+        scene.add(info_outline.object);
     }
 
     function camera_sync(camera, sync_camera) {

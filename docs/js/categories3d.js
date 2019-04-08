@@ -124,9 +124,9 @@ function embed_categories(
         renderer.setSize( w, h );
         camera = new THREE.PerspectiveCamera( 30, w / h, 0.1, 10000 );
         callback_info.camera = camera;
-        camera.position.x = 3 * center[0]; //-354.2465689567709;
-        camera.position.y = center[1]; //-172.1297558166637;
-        camera.position.z = 8 * center[2]; //-181.10999904026764;
+        camera.position.x = 5 * center[0]; //-354.2465689567709;
+        camera.position.y = 2 * center[1]; //-172.1297558166637;
+        camera.position.z = 12 * center[2]; //-181.10999904026764;
         camera.lookAt(new THREE.Vector3(center[0], center[1], center[2]));
         callback_info.center = center;
         orbitControls = new THREE.OrbitControls(camera, renderer.domElement);
