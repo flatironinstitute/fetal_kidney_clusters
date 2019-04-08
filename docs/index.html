@@ -177,6 +177,8 @@
 			//renderer.setSize( 500, 500 );
 
 			orbitControls = new THREE.OrbitControls(camera, renderer.domElement);
+			orbitControls.userZoom = false;
+			orbitControls.userePan = false;
 			//debugger;
 			orbitControls.center.set(center[0], center[1], center[2]);
 			camera.position.x = 5*center[0]; //-354.2465689567709;
