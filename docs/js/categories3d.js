@@ -130,6 +130,8 @@ function embed_categories(
         camera.lookAt(new THREE.Vector3(center[0], center[1], center[2]));
         callback_info.center = center;
         orbitControls = new THREE.OrbitControls(camera, renderer.domElement);
+        orbitControls.userZoom = false;
+        orbitControls.userePan = false;
         
         orbitControls.center.set(center[0], center[1], center[2]);
 
