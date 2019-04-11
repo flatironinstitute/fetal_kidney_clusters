@@ -135,6 +135,11 @@ input[type="checkbox"] {
   display: inline;
 }
 
+.checkbox-col {
+  display: flex;
+  flex-direction: column;
+}
+
 span {
   margin-left: 5px;
   padding: 2px;
@@ -143,6 +148,12 @@ span {
 
 span > span {
   margin-left: 0;
+  color: #fff;
+}
+
+.catspan {
+  margin: 2px;
+  padding: 3px;
 }
 
 select {

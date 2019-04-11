@@ -93,7 +93,7 @@ function embed_categories(
       var cblabel = $("<span>" + labels[category - 1] + "</span>").appendTo(
         cbdiv
       );
-      cbdiv.css("background-color", rgba).width("100px");
+      cbdiv.css("background-color", rgba).width("340px");
 
       // MeshLambertMaterial
       var hmaterial = new THREE.MeshBasicMaterial({
