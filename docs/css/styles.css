@@ -25,8 +25,15 @@ h2 {
   max-width: 75rem;
   margin: 0 auto;
   text-align: center;
-  font-size: 40px;
+  font-size: 2.5rem;
   line-height: 1.2;
+}
+
+h4 {
+  font-size: 1.5rem;
+  letter-spacing: -0.08rem;
+  text-align: center;
+  margin: 0 1rem 1rem 1rem;
 }
 
 .intro-text {
@@ -46,7 +53,7 @@ h2 {
 .container__viz {
   display: flex;
   flex-direction: row;
-  align-items: center;
+  align-items: flex-start;
   justify-content: center;
   width: 100%;
   background-color: #ffffff;
@@ -76,7 +83,7 @@ h2 {
 }
 
 .caption {
-  margin: 2rem 1rem;
+  margin: 1rem 1rem 0 1rem;
   min-height: 86px;
 }
 
@@ -128,6 +135,11 @@ input[type="checkbox"] {
   display: inline;
 }
 
+.checkbox-col {
+  display: flex;
+  flex-direction: column;
+}
+
 span {
   margin-left: 5px;
   padding: 2px;
@@ -136,6 +148,12 @@ span {
 
 span > span {
   margin-left: 0;
+  color: #fff;
+}
+
+.catspan {
+  margin: 2px;
+  padding: 3px;
 }
 
 select {

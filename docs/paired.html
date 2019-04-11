@@ -22,17 +22,18 @@
     </div>
     <div class="container__viz">
       <div class="column">
+        <h4>Clustered Protein Patterns</h4>
         <div id="container" class="viz"></div>
         <div class="caption">
           <p><b>Patterns:</b></p>
-          <div id="checkboxes"></div>
+          <div class="checkbox-col" id="checkboxes"></div>
         </div>
       </div>
       <div class="column">
+        <h4>Protein Image Data</h4>
         <div id="container2" class="viz"></div>
         <div class="caption">
           <div class="caption-top-row">
-            <!-- <label for="amount">Protein: </label> -->
             <p><b>Protein:</b></p>
             <div id="proteins"></div>
           </div>
@@ -46,8 +47,8 @@
     </div>
     <div class="container__footer">
       This visualization pairs a display of protein expression levels on the
-      right with clustered protein expression patterns on the left. Please view the source
-      to examine the embedding mechanics.
+      right with clustered protein expression patterns on the left. Please view
+      the source to examine the embedding mechanics.
     </div>
 
     <script src="./js/three.js"></script>
@@ -72,20 +73,20 @@
 
       var category_colors = {
         // r, g, b, a
-      1: [239,98,36, 1],
-      2: [0,162,121, 1],
-      3: [54,80,162, 1],
-      4: [0,132,197, 1],
-      5: [231,230,32, 1],
-      6: [85,186,70, 1],
-      7: [58,46,137, 1],
-      8: [238,179,30, 1],
-      9: [128, 128, 0, 0],
-      10: [0, 128, 128, 0],
-      11: [128, 0, 128, 0],
-      12: [127, 255, 127, 0],
-      13: [255, 105, 180, 0],
-      14: [244, 164, 96, 0]
+        1: [239, 98, 36, 1],
+        2: [0, 162, 121, 1],
+        3: [54, 80, 162, 1],
+        4: [0, 132, 197, 1],
+        5: [231, 230, 32, 1],
+        6: [85, 186, 70, 1],
+        7: [58, 46, 137, 1],
+        8: [238, 179, 30, 1],
+        9: [128, 128, 0, 0],
+        10: [0, 128, 128, 0],
+        11: [128, 0, 128, 0],
+        12: [127, 255, 127, 0],
+        13: [255, 105, 180, 0],
+        14: [244, 164, 96, 0]
       };
 
       var max_opacity = 0.5;
