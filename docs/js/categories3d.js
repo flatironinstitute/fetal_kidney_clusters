@@ -37,6 +37,22 @@ function embed_categories(
 
   function init() {
     scene = new THREE.Scene();
+
+    var light = new THREE.PointLight( 0xffffff );
+    light.position.set( 1000, 1000, 1000 );
+    scene.add( light );
+    var light = new THREE.PointLight( 0xddffff );
+    light.position.set( -1000, -1000, 1000 );
+    scene.add( light );
+    var light = new THREE.PointLight( 0xaaffaa );
+    light.position.set( 1000, -1000, -1000);
+    scene.add( light );
+    var light = new THREE.PointLight( 0x888888 );
+    light.position.set( -1000, 1000, -1000 );
+    scene.add( light );
+    var light = new THREE.AmbientLight( 0x444444 );
+    scene.add( light );
+
     category_to_info = {};
     callback_info.category_to_info = category_to_info;
     callback_info.scene = scene;
@@ -96,7 +112,7 @@ function embed_categories(
       cbdiv.css("background-color", rgba).width("340px");
 
       // MeshLambertMaterial
-      var hmaterial = new THREE.MeshBasicMaterial({
+      var hmaterial = new THREE.MeshStandardMaterial({
         color: 0xff0000,
         transparent: true,
         alphaTest: 0.2
@@ -131,7 +147,7 @@ function embed_categories(
         fbuffer,
         hmaterial
       );
-      info.material.wireframe = true;
+      //info.material.wireframe = true;
       scene.add(info.object);
       description.material = info.material;
       category_to_info[category] = description;

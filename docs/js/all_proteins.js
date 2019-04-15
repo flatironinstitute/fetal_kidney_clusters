@@ -7,7 +7,7 @@ function embed_proteins(
     slider_div_id,
     proteins_div_id,
 ) {
-    var renderer, scene, camera, info, info_outline, protein_to_path, protein_json;
+    var renderer, scene, camera, info, info_outline, protein_to_path, protein_json, slider_div;
 
     function on_load(data) {
         protein_to_path = data;
@@ -25,6 +25,7 @@ function embed_proteins(
 
     function init() {
         var protein_div = $("#" + proteins_div_id);
+        slider_div = $( "#" + slider_div_id)
         var select = $("<select/>").appendTo(protein_div);
         var selected;
         for (var protein in protein_to_path) {
@@ -38,7 +39,7 @@ function embed_proteins(
         })
 
         $( function() {
-            $( "#" + slider_div_id).slider({
+            slider_div.slider({
                 //orientation: "vertical",
                 range: "min",
                 min: -1,
@@ -54,16 +55,16 @@ function embed_proteins(
         } );
 
         scene = new THREE.Scene();
-        var light = new THREE.PointLight( 0xff2200 );
+        var light = new THREE.PointLight( 0xffffff );
         light.position.set( 1000, 1000, 1000 );
         scene.add( light );
-        var light = new THREE.PointLight( 0x0000ff );
+        var light = new THREE.PointLight( 0xddffff );
         light.position.set( -1000, -1000, 1000 );
         scene.add( light );
-        var light = new THREE.PointLight( 0xffff00 );
+        var light = new THREE.PointLight( 0xaaffaa );
         light.position.set( 1000, -1000, -1000);
         scene.add( light );
-        var light = new THREE.PointLight( 0x00ffff );
+        var light = new THREE.PointLight( 0x888888 );
         light.position.set( -1000, 1000, -1000 );
         scene.add( light );
         var light = new THREE.AmbientLight( 0x444444 );
@@ -108,6 +109,32 @@ function embed_proteins(
         jQuery.getJSON(json_file_path, load_protein_data).fail(on_load_failure);
     }
 
+    // slider max values requested by Rachel
+    var slider_max = {
+        Pou3f3: 1.6,
+        Erbb4: 1.5,
+        Sox9: 2,
+        Pappa2: 2.6,
+        Cdh1: 1.5,
+        Six2: 1.8,
+        Cdh6: 1.2,
+        Foxc2: 1.7,
+        Hnf1b: 0.7,
+        Sall1: 0.7,
+        Emx2: 0.5,
+        Lhx1: 1.6,
+        Pax2: 0.3,
+        Jag1: 1.1,
+        Mafb: 2.2,
+        Wt1: 1.6,
+        Troma1: 1.3,
+        Mecom: 0.5,
+        Lef1: 1.8,
+    };
+    for (var protein_name in slider_max) {
+        slider_max[protein_name.toLowerCase()] = slider_max[protein_name];
+    }
+
     function load_protein_data(data) {
         protein_json = data;
         var array = data.array;
@@ -117,11 +144,11 @@ function embed_proteins(
             scene.remove(info_outline.object);
         }
         // adjustable wireframe
-        var hmaterial = new THREE.MeshLambertMaterial( { 
+        var hmaterial = new THREE.MeshStandardMaterial( { 
             color: 0xffffff, 
             transparent:true, 
-            opacity: 0.5,
-            alphaTest: 0.2
+            opacity: 1.0,
+            alphaTest: 0.1
         } );
         value = 0.5;
         var limits = [-10, 100];
@@ -132,11 +159,11 @@ function embed_proteins(
         info = THREE.contourist.Regular3D(
             array, value, origin, u, v, w, hmaterial, limits
         );
-        info.material.wireframe = true;
+        //info.material.wireframe = true;
         scene.add(info.object);
         // static outline
-        var hmaterial_outline = new THREE.MeshNormalMaterial( { 
-            color: 0x997755, 
+        var hmaterial_outline = new THREE.MeshStandardMaterial( { 
+            color: 0xffffff, 
             transparent:true, 
             opacity: 0.3,
             alphaTest: 0.1
@@ -146,6 +173,12 @@ function embed_proteins(
             array, outline_value, origin, u, v, w, hmaterial_outline, limits
         );
         scene.add(info_outline.object);
+        var protein_max = slider_max[name];
+        if (protein_max) {
+            slider_div.slider({max: protein_max});
+        } else {
+            console.warn("no slider max found for " + name)
+        }
     }
 
     function camera_sync(camera, sync_camera) {
