@@ -121,14 +121,14 @@ function embed_proteins(
         Foxc2: 1.2,
         Hnf1b: 0.2,
         Sall1: 0.2,
-        Emx2: 0,
+        Emx2: 0.0,
         Lhx1: 1.1,
         Pax2: -0.2,
         Jag1: 0.6,
         Mafb: 1.7,
         Wt1: 1.1,
         Troma1: 0.8,
-        Mecom: 0,
+        Mecom: -0.01,
         Lef1: 1.3,
     };
     var slider_max = {
