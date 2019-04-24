@@ -110,7 +110,7 @@ function embed_proteins(
     }
 
     // slider max values requested by Rachel
-    var slider_max = {
+    var slider_val = {
         Pou3f3: 1.6,
         Erbb4: 1.5,
         Sox9: 2,
@@ -131,8 +131,8 @@ function embed_proteins(
         Mecom: 0.5,
         Lef1: 1.8,
     };
-    for (var protein_name in slider_max) {
-        slider_max[protein_name.toLowerCase()] = slider_max[protein_name];
+    for (var protein_name in slider_val) {
+        slider_val[protein_name.toLowerCase()] = slider_val[protein_name];
     }
 
     function load_protein_data(data) {
@@ -173,11 +173,15 @@ function embed_proteins(
             array, outline_value, origin, u, v, w, hmaterial_outline, limits
         );
         scene.add(info_outline.object);
-        var protein_max = slider_max[name];
-        if (protein_max) {
+        var protein_val = slider_val[name];
+	var protein_max = protein_val + 0.5;
+	var protein_min = protein_val - 0.5;
+        if (protein_val) {
             slider_div.slider({max: protein_max});
+	    slider_div.slider({min: protein_min});
+	    slider_div.slider({value: protein_val});
         } else {
-            console.warn("no slider max found for " + name)
+            console.warn("no slider val found for " + name)
         }
     }
 
