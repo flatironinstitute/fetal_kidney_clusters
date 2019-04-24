@@ -110,29 +110,52 @@ function embed_proteins(
     }
 
     // slider max values requested by Rachel
-    var slider_max = {
-        Pou3f3: 1.6,
-        Erbb4: 1.5,
-        Sox9: 2,
-        Pappa2: 2.6,
-        Cdh1: 1.5,
-        Six2: 1.8,
-        Cdh6: 1.2,
-        Foxc2: 1.7,
-        Hnf1b: 0.7,
-        Sall1: 0.7,
-        Emx2: 0.5,
-        Lhx1: 1.6,
-        Pax2: 0.3,
-        Jag1: 1.1,
-        Mafb: 2.2,
-        Wt1: 1.6,
-        Troma1: 1.3,
-        Mecom: 0.5,
-        Lef1: 1.8,
+    var slider_min = {
+        Pou3f3: 1.1,
+        Erbb4: 1,
+        Sox9: 1.5,
+        Pappa2: 2.1,
+        Cdh1: 1,
+        Six2: 1.3,
+        Cdh6: 0.7,
+        Foxc2: 1.2,
+        Hnf1b: 0.2,
+        Sall1: 0.2,
+        Emx2: 0,
+        Lhx1: 1.1,
+        Pax2: -0.2,
+        Jag1: 0.6,
+        Mafb: 1.7,
+        Wt1: 1.1,
+        Troma1: 0.8,
+        Mecom: 0,
+        Lef1: 1.3,
     };
+    var slider_max = {
+        Pou3f3: 2.1,
+        Erbb4: 2,
+        Sox9: 2.5,
+        Pappa2: 3.1,
+        Cdh1: 2,
+        Six2: 2.3,
+        Cdh6: 1.7,
+        Foxc2: 2.2,
+        Hnf1b: 1.2,
+        Sall1: 1.2,
+        Emx2: 1,
+        Lhx1: 2.1,
+        Pax2: 0.8,
+        Jag1: 1.6,
+        Mafb: 2.7,
+        Wt1: 2.1,
+        Troma1: 1.8,
+        Mecom: 1,
+        Lef1: 2.3,
+    };
+
     for (var protein_name in slider_max) {
         slider_max[protein_name.toLowerCase()] = slider_max[protein_name];
+	slider_min[protein_name.toLowerCase()] = slider_min[protein_name];
     }
 
     function load_protein_data(data) {
@@ -176,6 +199,12 @@ function embed_proteins(
         var protein_max = slider_max[name];
         if (protein_max) {
             slider_div.slider({max: protein_max});
+        } else {
+            console.warn("no slider max found for " + name)
+        }
+     var protein_min = slider_min[name];
+        if (protein_min) {
+            slider_div.slider({min: protein_min});
         } else {
             console.warn("no slider max found for " + name)
         }
