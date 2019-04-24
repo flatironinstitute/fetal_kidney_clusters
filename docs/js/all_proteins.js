@@ -183,6 +183,12 @@ function embed_proteins(
         } else {
             console.warn("no slider val found for " + name)
         }
+	//var protein_min = slider_min[name];
+        //if (protein_min) {
+        //    slider_div.slider({min: protein_min});
+        //} else {
+	//   console.warn("no slider max found for " + name)
+        //}
     }
 
     function camera_sync(camera, sync_camera) {
