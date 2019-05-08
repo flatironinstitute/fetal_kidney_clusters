@@ -1,4 +1,3 @@
-
 function embed_proteins(
     description_file_path,
     sync_camera,
@@ -29,7 +28,7 @@ function embed_proteins(
         var select = $("<select/>").appendTo(protein_div);
         var selected;
         for (var protein in protein_to_path) {
-            $('<option value="' + protein + '">' + protein + '</option>').appendTo(select);
+            $('<option value="' + protein + '">' + protein.toUpperCase() + '</option>').appendTo(select);
             selected = protein;
         }
         select.val(selected);
@@ -109,7 +108,7 @@ function embed_proteins(
         jQuery.getJSON(json_file_path, load_protein_data).fail(on_load_failure);
     }
 
-    // slider max values requested by Rachel
+    // slider center values requested by Rachel
     var slider_val = {
         Pou3f3: 1.6,
         Erbb4: 1.5,
