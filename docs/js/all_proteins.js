@@ -143,8 +143,8 @@ function embed_proteins(
             scene.remove(info_outline.object);
         }
         // adjustable wireframe
-        var hmaterial = new THREE.MeshStandardMaterial( { 
-            color: 0xffffff, 
+        var hmaterial = new THREE.MeshLambertMaterial( { 
+            color: 0xff0000, 
             transparent:true, 
             opacity: 1.0,
             alphaTest: 0.1
@@ -158,10 +158,10 @@ function embed_proteins(
         info = THREE.contourist.Regular3D(
             array, value, origin, u, v, w, hmaterial, limits
         );
-        //info.material.wireframe = true;
+        info.material.wireframe = true;
         scene.add(info.object);
         // static outline
-        var hmaterial_outline = new THREE.MeshStandardMaterial( { 
+        var hmaterial_outline = new THREE.MeshLambertMaterial( { 
             color: 0xffffff, 
             transparent:true, 
             opacity: 0.3,

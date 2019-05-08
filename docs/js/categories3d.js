@@ -112,7 +112,7 @@ function embed_categories(
       cbdiv.css("background-color", rgba).width("340px");
 
       // MeshLambertMaterial
-      var hmaterial = new THREE.MeshStandardMaterial({
+      var hmaterial = new THREE.MeshBasicMaterial({
         color: 0xff0000,
         transparent: true,
         alphaTest: 0.2
@@ -147,7 +147,7 @@ function embed_categories(
         fbuffer,
         hmaterial
       );
-      //info.material.wireframe = true;
+      info.material.wireframe = true;
       scene.add(info.object);
       description.material = info.material;
       category_to_info[category] = description;
