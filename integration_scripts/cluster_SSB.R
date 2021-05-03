@@ -26,7 +26,7 @@ imgs_wt1 = c('00000040', '00000041', '00000042', '00000085', '00000086', '000001
 
 n_clust = args[1]; #number of clusters
 
-dir = "/Genomics/ogtr04/sealfon/fetal_kidney_usc/data/180721_images/";
+dir = "180721_images/";
 
 nslice = 286;
 
