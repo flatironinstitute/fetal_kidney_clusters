@@ -1,8 +1,7 @@
 library(data.table)
 library(spatstat)
 
-#genes = c('lef1')
-#genes = c('cdh1', 'jag1', 'lef1', 'sall1', 'six2', 'sox9', 'troma1', 'wt1');
+
 genes = c('cdh1', 'cdh6', 'cldn5', 'emx2', 'erbb4', 'foxc2', 'hnf1b', 'jag1', 'lef1', 'lhx1', 'mafb', 'mecom', 'pappa2', 'pax2', 'pou3f3', 'sall1', 'six2', 'sox9', 'troma1', 'wt1')
 imgs_cdh1 = c('00000035', '00000036', '00000037', '00000038', '00000039', '00000040', '00000041', '00000042', '00000080', '00000081', '00000082', '00000083', '00000084', '00000085', '00000086', '00000098', '00000118', '00000119', '00000120', '00000121')
 imgs_cdh6 = c('00000118', '00000119', '00000120', '00000121')
@@ -71,18 +70,13 @@ for (i in c(1:length(genes))){
     assign(paste(genes[i], "_v", sep=""), rep(0, length(as.vector(as.matrix(get(paste(genes[1], "_",  imgs_cdh1[1], sep="")))))))       
     gene_v = get(paste(genes[i], "_v", sep=""))
     for (j in 1:length(gene_imgs)){
-        #print(as.vector(scale(as.vector(as.matrix(get(paste(genes[i], "_",    gene_imgs[j], sep=""))))))[50000])
         gene_v = gene_v + as.vector(scale(as.vector(as.matrix(get(paste(genes[i], "_",  gene_imgs[j], sep=""))))))      
-        #print(gene_v[50000])
     }
     gene_v = gene_v / length(gene_imgs) 
     assign(paste(genes[i], "_v", sep=""), gene_v)
-    #for (k in 50000:50010) {
-    #   print(paste(genes[i], ":", gene_v[k], sep=""))
-    # }
+
 }
 
-#write.table(matrix(get("lef1_v"), nrow = 62634, ncol = 190), "lef1_avg.txt", row.names=FALSE, col.names=FALSE)
 
 all <- cbind(get("cdh1_v"), get("cdh6_v"), get("cldn5_v"), get("emx2_v"), get("erbb4_v"), get("foxc2_v"), get("hnf1b_v"), get("jag1_v"), get("lef1_v"), get("lhx1_v"), get("mafb_v"), get("mecom_v"), get("pappa2_v"), get("pax2_v"), get("pou3f3_v"), get("sall1_v"), get("six2_v"), get("sox9_v"), get("troma1_v"), get("wt1_v"))
 all_s <- scale(all)
